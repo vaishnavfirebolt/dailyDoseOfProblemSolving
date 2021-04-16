@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Codeforces1504B {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int t = sc.nextInt();
+outer:	for(int tt=0;tt<t;tt++) {
+			int n = sc.nextInt();
+			String s = sc.next();
+			String target = sc.next();
+			int i = 0;
+			int count0 = 0 , count1 = 0;
+			for(int k = 0 ; k < n ; k++) {
+				if(s.charAt(k) == '0')count0++;
+				else count1++;
+				
+				if(count0 == count1) {
+					String toCheck = s.substring(i , k+1);
+					String targ = target.substring(i , k+1);
+					String flipped = flip(toCheck);
+					if(!(targ.equals(toCheck) || targ.equals(flipped))) {
+						System.out.println("NO");
+						continue outer;
+					}
+					i = k+1;
+				}
+			}
+			if(count0 != count1) {
+				String toCheck = s.substring(i);
+				String targ = target.substring(i);
+				if(!(targ.equals(toCheck))) {
+					System.out.println("NO");
+					continue outer;
+				}
+			}
+			System.out.println("YES");
+			
+		}
+		sc.close();
+	}
+
+	private static String flip(String toCheck) {
+		StringBuilder sb = new StringBuilder();
+		for(char ch : toCheck.toCharArray()) {
+			if(ch == '0')sb.append(1);
+			else sb.append(0);
+		}
+		return sb.toString();
+	}
+
+}
