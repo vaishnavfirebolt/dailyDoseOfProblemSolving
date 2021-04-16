@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class Codeforces1504C {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int t = sc.nextInt();
+outer:	for(int tt=0;tt<t;tt++) {
+			int n = sc.nextInt();
+			char a[] = sc.next().toCharArray();
+			if(a[0] != a[n-1] || a[0] != '1') {
+				System.out.println("NO");
+				continue outer;
+			}
+			int count0 = 0;
+			for(int i = 1 ; i < n -1 ; i++) {
+				if(a[i] == '0')count0++;
+			}
+			if(count0 % 2 ==1) {
+				System.out.println("NO");
+				continue outer;
+			}
+			int count1 = n - 2 - count0;
+			count1 = count1/2;
+			StringBuilder ans1 = new StringBuilder();
+			StringBuilder ans2 = new StringBuilder();
+			ans1.append('(');
+			ans2.append('(');
+			for(int i = 1 ; i < n-1 ; i++) {
+				if(a[i] == '0') {
+					if(count0 % 2 == 0) {
+						ans1.append('(');
+						ans2.append(')');
+					}else {
+						ans1.append(')');
+						ans2.append('(');
+					}
+					count0--;
+				}else {
+					if(count1 > 0) {
+						ans1.append('(');
+						ans2.append('(');
+						count1--;
+					}else {
+						ans1.append(')');
+						ans2.append(')');
+					}
+				}
+			}
+			ans1.append(')');
+			ans2.append(')');
+			System.out.println("YES");
+			System.out.println(ans1.toString());
+			System.out.println(ans2.toString());
+		}
+		sc.close();
+	}
+
+}
