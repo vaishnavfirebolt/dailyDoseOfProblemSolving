@@ -1,0 +1,70 @@
+package day5;
+
+import java.util.*;
+
+public class Codeforces1484C {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		for(int tt=0 ;tt<t;tt++) {
+			int n = sc.nextInt() , m = sc.nextInt();
+			List<List<Integer>> list = new ArrayList<>();
+			for(int i = 0; i < m; i++) {
+				List<Integer> al = new ArrayList<>();
+				int x = sc.nextInt();
+				for(int j = 0; j < x; j++) {
+					al.add(sc.nextInt());
+				}
+				list.add(new ArrayList<>(al));
+			}
+			int[] days = new int[m];
+			Map<Integer,Integer> map = new HashMap<>();
+			for(int i = 1; i <= n; i++) {
+				map.put(i, 0);
+			}
+			
+			for(int i = 0; i < m; i++) {
+				if(list.get(i).size() == 1) {
+					map.put(list.get(i).get(0), map.getOrDefault(list.get(i).get(0), 0)+1);
+					days[i] = list.get(i).get(0);
+				}
+			}
+			for(int i = 0; i < m; i++) {
+				if(list.get(i).size() == 1)  continue;
+				List<Integer> frnds = list.get(i);
+				int which = 0;
+				int min = Integer.MAX_VALUE;
+				for(int j = 0; j < frnds.size(); j++) {
+					if(min > map.get(frnds.get(j))) {
+						min = map.get(frnds.get(j));
+						which = frnds.get(j);
+					}
+				}
+				map.put(which, map.get(which)+1);
+				days[i] = which;
+			}
+			boolean yes = true;
+			int ub = (int)Math.ceil(m*1.0/2);
+			for(int e : map.keySet()) {
+				if(map.get(e) > ub) {
+					yes = false;
+					break;
+				}
+			}
+			if(!yes) {
+				System.out.println("NO");
+			}
+			else {
+				System.out.println("YES");
+				for(int e : days) {
+					System.out.print(e + " ");
+				}
+				System.out.println();
+			}
+		}
+		
+		sc.close();
+		
+	}
+}
