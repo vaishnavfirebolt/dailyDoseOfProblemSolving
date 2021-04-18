@@ -1,0 +1,47 @@
+package day6;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Codeforces1496C {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int t = sc.nextInt();
+		for(int tt = 0 ;tt < t ;tt++) {
+			int n = sc.nextInt();
+			long x[] = new long[n];
+			long y[] = new long[n];
+			int xi = 0 , yi = 0;
+			for(int i = 0 ; i < 2*n ; i++) {
+				long a = sc.nextLong() , b = sc.nextLong();
+				if(a==0) {
+					y[yi++] = Math.abs(b);
+				}else {
+					x[xi++] = Math.abs(a);
+				}
+			}
+			sort(x);
+			sort(y);
+			
+			double ans = 0;
+			for(int i = 0 ; i < n ; i++) {
+				double curr = x[i] * x[i] + y[i] * y[i];
+				ans += Math.sqrt(curr);
+			}
+			System.out.println(ans);
+		}
+		
+		sc.close();
+	}
+	public static void sort(long[] a) {
+		ArrayList<Long> l=new ArrayList<>();
+		for (long i:a) l.add(i);
+		Collections.sort(l);
+		for (int i=0; i<a.length; i++) a[i]=l.get(i);
+	}
+	
+
+}
