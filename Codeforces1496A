@@ -1,0 +1,36 @@
+package day6;
+
+import java.util.Scanner;
+
+public class Codeforces1496A {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int t = sc.nextInt();
+		for(int tt=0;tt<t;tt++) {
+			int n = sc.nextInt() , k = sc.nextInt();
+			char[] a = sc.next().toCharArray();
+			int i = 0 ; int j = n-1;
+			int count = 0;
+			int l;
+			if(n%2 == 0) {
+				l = n/2 -1;
+			}else l = n/2;
+			while(i < j && i < l) {
+				if(a[i] == a[j]) {
+					count++;
+					i++;j--;
+				}else {
+					break;
+				}
+			}
+			if(count >= k) {
+				System.out.println("YES");
+			}else System.out.println("NO");
+		}
+		
+		sc.close();
+	}
+
+}
